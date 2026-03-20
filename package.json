@@ -1,0 +1,98 @@
+{
+  "name": "groupcache-js",
+  "version": "0.1.0",
+  "description": "Distributed caching and cache-filling library for Node.js/TypeScript. No Redis required - your app instances become the cache.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sameer-m-dev/groupcache-js.git"
+  },
+  "homepage": "https://github.com/sameer-m-dev/groupcache-js#readme",
+  "bugs": {
+    "url": "https://github.com/sameer-m-dev/groupcache-js/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist coverage",
+    "prepublishOnly": "npm run clean && npm run build && npm test",
+    "bench": "npx tsx benchmarks/run-all.ts",
+    "bench:cache": "npx tsx benchmarks/cache-backends.ts",
+    "bench:transport": "npx tsx benchmarks/transports.ts",
+    "bench:workers": "npx tsx benchmarks/workers.ts",
+    "release": "npm run clean && npm run build && npm test && npm publish",
+    "release:patch": "npm version patch && npm run release",
+    "release:minor": "npm version minor && npm run release",
+    "release:major": "npm version major && npm run release"
+  },
+  "keywords": [
+    "cache",
+    "distributed-cache",
+    "groupcache",
+    "lru",
+    "lfu",
+    "arc",
+    "consistent-hashing",
+    "singleflight",
+    "peer-to-peer",
+    "kubernetes",
+    "http2",
+    "grpc",
+    "typescript",
+    "caching",
+    "distributed",
+    "embedded-cache"
+  ],
+  "author": "Sameer <sameer@fynd.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@grpc/grpc-js": "^1.14.3",
+    "@grpc/proto-loader": "^0.8.0",
+    "@types/node": "^20.11.0",
+    "@vitest/coverage-v8": "^1.2.0",
+    "@vitest/ui": "^1.2.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "xxhash-wasm": "^1.0.2"
+  },
+  "optionalDependencies": {
+    "@grpc/grpc-js": "^1.9.0",
+    "@grpc/proto-loader": "^0.7.0"
+  },
+  "peerDependencies": {
+    "@grpc/grpc-js": "^1.9.0",
+    "@grpc/proto-loader": "^0.7.0"
+  },
+  "peerDependenciesMeta": {
+    "@grpc/grpc-js": {
+      "optional": true
+    },
+    "@grpc/proto-loader": {
+      "optional": true
+    }
+  }
+}

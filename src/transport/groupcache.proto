@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package groupcache;
+
+// GroupCache service for peer-to-peer cache operations
+service GroupCache {
+  // Get retrieves a value from the cache
+  rpc Get(GetRequest) returns (GetResponse);
+
+  // Set stores a value in the cache
+  rpc Set(SetRequest) returns (SetResponse);
+
+  // Remove deletes a key from the cache
+  rpc Remove(RemoveRequest) returns (RemoveResponse);
+
+  // RemoveMany deletes multiple keys from the cache
+  rpc RemoveMany(RemoveManyRequest) returns (RemoveManyResponse);
+}
+
+// GetRequest is the request message for Get RPC
+message GetRequest {
+  string group = 1;
+  string key = 2;
+}
+
+// GetResponse is the response message for Get RPC
+message GetResponse {
+  bytes value = 1;
+  // Optional expiration timestamp in milliseconds since epoch
+  optional int64 expires_at = 2;
+  // Whether this was a cache hit on the peer
+  optional bool hit = 3;
+}
+
+// SetRequest is the request message for Set RPC
+message SetRequest {
+  string group = 1;
+  string key = 2;
+  bytes value = 3;
+  // Optional TTL in milliseconds
+  optional int64 ttl = 4;
+}
+
+// SetResponse is the response message for Set RPC
+message SetResponse {
+  // Empty - success indicated by lack of error
+}
+
+// RemoveRequest is the request message for Remove RPC
+message RemoveRequest {
+  string group = 1;
+  string key = 2;
+}
+
+// RemoveResponse is the response message for Remove RPC
+message RemoveResponse {
+  // Empty - success indicated by lack of error
+}
+
+// RemoveManyRequest is the request message for RemoveMany RPC
+message RemoveManyRequest {
+  string group = 1;
+  repeated string keys = 2;
+}
+
+// RemoveManyResponse is the response message for RemoveMany RPC
+message RemoveManyResponse {
+  // Empty - success indicated by lack of error
+}
