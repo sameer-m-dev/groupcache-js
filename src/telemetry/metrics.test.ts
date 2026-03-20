@@ -174,7 +174,8 @@ describe('withTiming', () => {
     );
 
     const recordedDuration = (histogram.record as ReturnType<typeof vi.fn>).mock.calls[0]![0];
-    expect(recordedDuration).toBeGreaterThanOrEqual(10);
+    // Allow for timer precision variance
+    expect(recordedDuration).toBeGreaterThanOrEqual(9);
   });
 
   it('should record timing for failed operation', async () => {

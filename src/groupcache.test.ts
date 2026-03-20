@@ -360,12 +360,7 @@ describe('GroupCache', () => {
         },
       });
 
-      try {
-        await group.get('key');
-        expect.fail('Should have thrown');
-      } catch (e) {
-        expect((e as Error).message).toBe('Getter error');
-      }
+      await expect(group.get('key')).rejects.toThrow('Getter error');
     });
   });
 });

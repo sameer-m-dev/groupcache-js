@@ -96,11 +96,7 @@ describe('Singleflight', () => {
         .mockRejectedValueOnce(new Error('first'))
         .mockResolvedValueOnce('second');
 
-      try {
-        await sf.do('key1', fn);
-      } catch (e) {
-        expect((e as Error).message).toBe('first');
-      }
+      await expect(sf.do('key1', fn)).rejects.toThrow('first');
       const result = await sf.do('key1', fn);
 
       expect(result).toBe('second');

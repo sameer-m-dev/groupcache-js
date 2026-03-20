@@ -86,6 +86,9 @@ export class Singleflight {
       reject = rej;
     });
 
+    // Prevent unhandled rejection warnings - actual errors still propagate to waiters
+    promise.catch(() => {});
+
     const call: Call<T> = {
       promise,
       resolve,

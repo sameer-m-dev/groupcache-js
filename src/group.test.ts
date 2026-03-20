@@ -153,12 +153,7 @@ describe('Group', () => {
         getter,
       });
 
-      try {
-        await group.get('key1');
-        expect.fail('Should have thrown');
-      } catch (e) {
-        expect((e as Error).message).toBe('Load failed');
-      }
+      await expect(group.get('key1')).rejects.toThrow('Load failed');
 
       const stats = group.getStats();
       expect(stats.localLoadErrors).toBe(1);
@@ -633,11 +628,7 @@ describe('Group', () => {
       await group.get('key1'); // Hit
       await group.get('key2'); // Miss, load
       await group.get('key1'); // Hit (key1 is still cached)
-      try {
-        await group.get('key3'); // Miss, error
-      } catch {
-        // Expected
-      }
+      await expect(group.get('key3')).rejects.toThrow('fail'); // Miss, error
 
       const stats = group.getStats();
 
